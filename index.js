@@ -12,8 +12,10 @@ const bodyParser = require("body-parser");
 //MIDDLEWARE
 app.use('/api/users', userRoutes)
 // app.use('/api/posts', postRoutes)
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json({ extended: true }));
+
+app.use(express.json()) //modern version
 
 app.get("/", (req, res) => {
   res.send("Work in progress!");
