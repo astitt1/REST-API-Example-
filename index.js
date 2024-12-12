@@ -35,13 +35,38 @@ app.post("/api/users", (req, res) => {
 
     users.push(user);
     res.json(users[users.length - 1]);
-  } else res.json({error: "Insufficent Data"})
+  } else res.json({ error: "Insufficent Data" });
 });
 
 app.get("/api/users/:id", (req, res, next) => {
   const user = users.find((u) => u.id == req.params.id);
   if (user) res.json(user);
   else next();
+});
+
+app.patch("/api/users/:id", (req, res) => {
+  const user = users.find((u, i) => {
+    if (u.id == req.params.id) {
+      for (const key in req.body) {
+        users[i][key] = req.body[key];
+      }
+    }
+    return true;
+  });
+
+  if (user) res.json(user);
+  else next();
+});
+
+app.delete("/api/users/:id", (req, res) => {
+  const user = users.find((u, i) => {
+    if (u.id == req.params.id) {
+      users.splice(i, 1);
+      return true;
+    }
+  });
+
+  if (user) res.json(user);
 });
 
 //posts
